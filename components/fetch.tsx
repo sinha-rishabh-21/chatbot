@@ -12,7 +12,8 @@ export default async function sendPostRequest(
 ) {
   setIsLoading(true);
   try {
-    const response = await fetch("http://localhost:3001/query", {
+    // const response = await fetch("http://localhost:3001/query", {
+    const response = await fetch("https://coach.zenlearn.ai/query", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
