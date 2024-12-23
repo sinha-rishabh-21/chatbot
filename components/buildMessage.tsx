@@ -1,7 +1,7 @@
 import { Message } from "ai";
 
 export default function buildMessageArray(messages: Message[], input: string) {
-  var messageArray: string = "\nChatHistory:{ \n";
+  let messageArray: string = "\nChatHistory:{ \n";
   messages.map((message) => {
     messageArray += `${message.role} : ${message.content}\n`;
   });

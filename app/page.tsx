@@ -1,11 +1,10 @@
 "use client";
-import { useState, useEffect, useRef, use } from "react";
+import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Button } from "@/components/ui/button";
 import sendPostRequest from "@/components/fetch";
 import generateId from "@/components/generateId";
-import Image from "next/image";
 
 import {
   Card,
@@ -30,24 +29,24 @@ import {
 import { Message, useChat } from "@ai-sdk/react";
 import { motion, AnimatePresence } from "framer-motion";
 
-function useStreamingMessage(content: string, delay = 50) {
-  const [displayedContent, setDisplayedContent] = useState("");
-  useEffect(() => {
-    let index = 0;
-    setDisplayedContent(""); // Clear content when a new message starts
-    const interval = setInterval(() => {
-      if (index < content.length) {
-        setDisplayedContent((prev) => prev + content[index]);
-        index++;
-      } else {
-        clearInterval(interval);
-      }
-    }, delay);
-    return () => clearInterval(interval); // Cleanup interval on unmount
-  }, [content, delay]);
+// function useStreamingMessage(content: string, delay = 50) {
+//   const [displayedContent, setDisplayedContent] = useState("");
+//   useEffect(() => {
+//     let index = 0;
+//     setDisplayedContent(""); // Clear content when a new message starts
+//     const interval = setInterval(() => {
+//       if (index < content.length) {
+//         setDisplayedContent((prev) => prev + content[index]);
+//         index++;
+//       } else {
+//         clearInterval(interval);
+//       }
+//     }, delay);
+//     return () => clearInterval(interval); // Cleanup interval on unmount
+//   }, [content, delay]);
 
-  return displayedContent;
-}
+//   return displayedContent;
+// }
 
 export default function ChatBot() {
   const [isChatOpen, setIsChatOpen] = useState(false);
