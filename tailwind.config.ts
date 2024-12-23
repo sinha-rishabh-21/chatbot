@@ -9,6 +9,21 @@ export default {
   ],
   theme: {
   	extend: {
+		animation: {
+			loader: 'loader 22s linear infinite',
+		  },
+		  keyframes: {
+			loader: {
+			  '0%': { 'background-position': '600% 0' },  // Start from far left
+          '100%': { 'background-position': '-600% 0' },  // End at far right
+			},
+		  },
+		  backgroundSize: {
+			'600': '600%',
+		  },
+		  filter: {
+			blur: 'blur(20px)',
+		  },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

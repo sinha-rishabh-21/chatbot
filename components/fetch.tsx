@@ -7,22 +7,21 @@ export default async function sendPostRequest(
   input: string,
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setError: React.Dispatch<React.SetStateAction<boolean>>
-  //updateMessages: () => void
+  setError: React.Dispatch<React.SetStateAction<boolean>>,
+  abortController: AbortController
 ) {
   setIsLoading(true);
   try {
-    // const response = await fetch("http://localhost:3001/query", {
-    const response = await fetch("https://coach.zenlearn.ai/query", {
+    const response = await fetch("http://localhost:3001/query", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ query: buildMessageArray(messages, input) }),
+      signal: abortController.signal, // Attach the signal here
     });
 
     if (!response.ok) {
-      //throw new Error("Network response was not ok");
       setIsLoading(false);
       return setError(true);
     }
@@ -37,13 +36,10 @@ export default async function sendPostRequest(
       data: { detected_language: detected_language },
     };
 
-    //updateMessages();
-    // Use setMessages to update the messages state immutably
-    setMessages((prevMessages) => [...prevMessages, stream]); // Create a new array by spreading the previous messages and adding the new one
-    setIsLoading(false);
+    setMessages((prevMessages) => [...prevMessages, stream]);
   } catch (error) {
-    //console.error("Error:", error);
-    setIsLoading(false);
     setError(true);
+  } finally {
+    setIsLoading(false);
   }
 }
